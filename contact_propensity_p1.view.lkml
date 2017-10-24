@@ -10,6 +10,41 @@ view: contact_propensity_p1 {
       url: "http://www.google.com/search?q={{ value }}"
       icon_url: "http://google.com/favicon.ico"
     }
+    action: {
+      label: "Create Post"
+      url: "https://example.com/posts"
+      param: {
+        name: "some_auth_code"
+        value: "abc123456"
+      }
+      form_param: {
+        name: "title"
+        required: yes
+      }
+      form_param: {
+        name: "body"
+        type: textarea
+        required: yes
+      }
+      form_param: {
+        name: "test"
+        type: select
+        default: "partridge"
+        option: {
+          name: "foo"
+          label: "bar"
+        }
+        option: {
+          name: "partridge"
+          label: "Partridges"
+        }
+        option: {
+          name: "label_not_required"
+        }
+      }
+    }
+
+
   }
 
 
