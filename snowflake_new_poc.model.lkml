@@ -7,7 +7,7 @@ include: "*.view"
 include: "*.dashboard"
 
 datagroup: interaction_date_datagroup {
-  sql_trigger: SELECT max(interaction date) FROM contact_propensity_p1 ;;
+  sql_trigger: SELECT max(interaction_date) FROM contact_propensity_p1 ;;
   max_cache_age: "24 hours"
 }
 
@@ -28,6 +28,7 @@ explore: contact_propensity_p1 {
 }
 
 explore: cp_nav_email_detail {}
+
 
 explore: cp_nav_email_thread {}
 
