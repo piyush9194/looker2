@@ -11,7 +11,7 @@ view: contact_propensity_p1 {
       icon_url: "http://google.com/favicon.ico"
     }
     action: {
-      label: "Create Post"
+      label: "Create Email"
       url: "https://example.com/posts"
       param: {
         name: "some_auth_code"
