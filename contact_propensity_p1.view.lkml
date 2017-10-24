@@ -1,14 +1,22 @@
 view: contact_propensity_p1 {
   sql_table_name: CDW_WAREHOUSE.CONTACT_PROPENSITY_P1 ;;
-
+  label: "Contact Propensity"
   dimension: brand {
     type: string
-    sql: ${TABLE}.BRAND ;;
+    sql: ${TABLE}.brand ;;
+    link: {
+
+      label: "Google Search"
+      url: "http://www.google.com/search?q={{ value }}"
+      icon_url: "http://google.com/favicon.ico"
+    }
   }
 
-  dimension: channel_name {
+
+
+  dimension: Channel {
     type: string
-    sql: ${TABLE}.CHANNEL_NAME ;;
+    sql: ${TABLE}.channel_name ;;
   }
 
   dimension_group: interaction {
@@ -36,13 +44,36 @@ view: contact_propensity_p1 {
     sql: ${TABLE}.POS ;;
   }
 
-  dimension: volume_relevant_contacts_inbnd {
-    type: number
-    sql: ${TABLE}.VOLUME_RELEVANT_CONTACTS_INBND ;;
+  measure: volume_relevant_contacts_inbnd {
+    type: sum
+    drill_fields: [brand,Channel,interaction_year,volume_relevant_contacts_inbnd]
+    sql: ${TABLE}.volume_relevant_contacts_inbnd
+      ;;
+  }
+
+
+  measure: volume_relevant_contacts_inbnd_modifiedj {
+    group_label: "Calculated Measures"
+
+    sql: CASE WHEN ${Channel} ='Phone' THEN  ${volume_relevant_contacts_inbnd} * 5
+          WHEN ${Channel} ='Email' THEN  ${volume_relevant_contacts_inbnd} * 2
+          ELSE ${volume_relevant_contacts_inbnd} * 3 END
+            ;;
+  }
+
+  measure: volume_relevant_contacts_inbnd_modifiedop {
+    group_label: "Calculated Measures"
+
+    sql: CASE WHEN ${Channel} ='Phone' THEN  ${volume_relevant_contacts_inbnd} * 5
+          WHEN ${Channel} ='Email' THEN  ${volume_relevant_contacts_inbnd} * 2
+          ELSE ${volume_relevant_contacts_inbnd} * 3 END
+            ;;
   }
 
   measure: count {
     type: count
-    drill_fields: [channel_name]
+    drill_fields: [Channel]
   }
+
+
 }
